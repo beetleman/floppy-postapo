@@ -81,6 +81,14 @@
         overlaps      (map overlap-check diags)]
     (some #(= true %) overlaps)))
 
+(defn add-pipe-to-state []
+  (swap! state update-in [:pipes]
+         (fn [pipes]
+           (apply conj (filter
+                        (fn [pipe]
+                          (< 0 (get-in pipe [1 :x]))) pipes)
+                  (pipe-gen)))))
+
 (def main-screen
   (reify p/Screen
 
@@ -89,15 +97,10 @@
       ;where we remove pipes that have gone off the screen to the left.
       ;We also need to record the id of our call to setInterval so we can
       ;destroy it when we leave this screen.
+      (add-pipe-to-state)
       (swap! state update-in [:timeoutid]
              (fn [_] (js/setInterval
-                       (fn []
-                         (swap! state update-in [:pipes]
-                                (fn [pipes]
-                                  (apply conj (filter
-                                                (fn [pipe]
-                                                  (< 0 (get-in pipe [1 :x]))) pipes)
-                                         (pipe-gen)))))
+                      add-pipe-to-state
                        5000))))
 
     (on-hide [this]
