@@ -47,7 +47,7 @@
                 :source-paths ["src"]
                 :compiler {:output-to "resources/public/js/compiled/floppy_postapo.js"
                            :main floppy-postapo.core
-                           :optimizations :advanced
+                           :optimizations :simple
                            :pretty-print false}}]}
 
   :figwheel {;; :http-server-root "public" ;; default and assumes "resources"

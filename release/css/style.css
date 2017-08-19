@@ -1,0 +1,15 @@
+/* some style */
+html, body {
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+    min-height: 100vh;
+    min-width: 100vw;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas {
+    display: block;
+    margin: 0;
+}
