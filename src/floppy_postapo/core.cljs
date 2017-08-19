@@ -48,7 +48,7 @@
 ;Top and bottom pipes are generated together as the gap between them should
 ;always be the same.
 (defn pipe-gen []
-  (let [rnd (rand 350)]
+  (let [rnd (rand 250)]
     [[:image {:name   "img/pipedwn.png"
               :width  50
               :height 400
@@ -98,7 +98,7 @@
                                                 (fn [pipe]
                                                   (< 0 (get-in pipe [1 :x]))) pipes)
                                          (pipe-gen)))))
-                       4000))))
+                       5000))))
 
     (on-hide [this]
       (js/clearInterval (:timeoutid @state)))
