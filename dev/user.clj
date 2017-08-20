@@ -34,6 +34,10 @@
   []
   (f/stop-figwheel!))
 
+(defn fig-restart []
+  (fig-stop)
+  (fig-start))
+
 ;; if you are in an nREPL environment you will need to make sure you
 ;; have setup piggieback for this to work
 (defn cljs-repl

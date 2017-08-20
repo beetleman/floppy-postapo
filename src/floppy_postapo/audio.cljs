@@ -1,5 +1,5 @@
 (ns floppy-postapo.audio
-  (:require [mount.core :refer [defstate]]))
+  (:require-macros [mount.core :refer [defstate]]))
 
 
 (defstate main :start (let [audio (js/Audio. "audio/main.ogg")]
