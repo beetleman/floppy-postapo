@@ -1,9 +1,9 @@
 (ns floppy-postapo.core
-    (:require [play-cljs.core :as p]
-              [goog.events :as events]))
+  (:require [play-cljs.core :as p]
+            [goog.events :as events]
+            [floppy-postapo.audio :as audio]))
 
 (enable-console-print!)
-
 
 (defonce game (p/create-game 500 500))
 (defonce state (atom {:timeoutid 0
@@ -98,12 +98,14 @@
       ;We also need to record the id of our call to setInterval so we can
       ;destroy it when we leave this screen.
       (add-pipe-to-state)
+      (.play @audio/main)
       (swap! state update-in [:timeoutid]
              (fn [_] (js/setInterval
                       add-pipe-to-state
                        5000))))
 
     (on-hide [this]
+      (.pause @audio/main)
       (js/clearInterval (:timeoutid @state)))
 
     (on-render [this]
@@ -136,8 +138,10 @@
 
 (def title-screen
   (reify p/Screen
-    (on-show [this])
-    (on-hide [this])
+    (on-show [this]
+      (.play @audio/splash))
+    (on-hide [this]
+      (js/setTimeout #(.pause @audio/splash)))
     (on-render [this]
       (p/render game
                 [[:image {:name "img/sky.png" :width 500 :height 500 :x 0 :y 0}]
