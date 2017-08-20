@@ -48,7 +48,8 @@
 
           ;;If the ship hits the ground or a pipe, return to the title screen and
           ;;reset its position.
-          (when (or (< 400 ship-p) (utils/collision-detection pipes ship-image))
+          (when (or (not (> 400 ship-p 0))
+                    (utils/collision-detection pipes ship-image))
             (do
               (g/reset-state (get-state))
               (p/set-screen (get-game) title)))
